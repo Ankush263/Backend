@@ -1,5 +1,26 @@
 const mongoose = require("mongoose")
 
+const meatDetailSchema = new mongoose.Schema({
+  chicken: Boolean,
+  pork: Boolean,
+  beef: Boolean,
+  goat: Boolean,
+  lamb: Boolean,
+  turkey: Boolean,
+  duck: Boolean,
+})
+
+const produceDetailSchema = new mongoose.Schema({
+  potato: Boolean,
+  berry: Boolean,
+  rice: Boolean,
+  tomato: Boolean,
+  lemon: Boolean,
+  nuts: Boolean,
+  onion: Boolean,
+  carrot: Boolean,
+})
+
 const farmSchema = new mongoose.Schema({
   createAt: {
     type: Date,
@@ -26,29 +47,22 @@ const farmSchema = new mongoose.Schema({
   },
   produce: {
     type: Boolean,
-    required: true,
-    details: {
-      potato: Boolean,
-      berry: Boolean,
-      rice: Boolean,
-      tomato: Boolean,
-      lemon: Boolean,
-      nuts: Boolean,
-      onion: Boolean,
-      carrot: Boolean
+    default: false
+  },
+  produceDetails: {
+    type: produceDetailSchema,
+    validate: function() {
+      return this.produce
     }
   },
   meat: {
     type: Boolean,
-    required: true,
-    details: {
-      chicken: Boolean,
-      pork: Boolean,
-      beef: Boolean,
-      goat: Boolean,
-      lamb: Boolean,
-      turkey: Boolean,
-      duck: Boolean
+    default: false
+  },
+  meatDetails: {
+    type: meatDetailSchema,
+    validate: function() {
+      return this.meat
     }
   }
 })
