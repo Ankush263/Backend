@@ -1,6 +1,16 @@
 const mongoose = require("mongoose")
 const Farm = require("../farmModel.js")
 
+const detailsSchema = new mongoose.Schema({
+  details: [
+    {
+      packsWeight: String,
+      price: Number,
+      img: String
+    }
+  ]
+})
+
 const chickenSchema = new mongoose.Schema({
   subDoc: {
     type: mongoose.Schema.Types.ObjectId,
@@ -8,64 +18,58 @@ const chickenSchema = new mongoose.Schema({
   },
   cuts: {
     wholeChicken: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean,
+    },
+    wholeChickenDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.wholeChicken
+      }
     },
     chickenLeg: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean,
+    },
+    chickenLegDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.chickenLeg
+      }
     },
     breast: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean,
+    },
+    breastDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.breast
+      }
     },
     wings: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean,
+    },
+    wingsDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.wings
+      }
     },
     dramstick: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean,
+    },
+    dramstickDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.dramstick
+      }
     },
     thigh: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean,
+    },
+    thighDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.thigh
+      }
     }
   }
 })
