@@ -1,120 +1,110 @@
 const mongoose = require("mongoose")
 const Farm = require("../farmModel.js")
 
+const detailsSchema = new mongoose.Schema({
+  details: [
+    {
+      packsWeight: String,
+      price: Number,
+      img: String
+    }
+  ]
+})
+
 const riceSchema = new mongoose.Schema({
-  subDoc: {
+  farm_Id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farm'
   },
   arborioRice: {
-    available: Boolean,
-    length: "Medium grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  arborioRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.arborioRice
+    }
   },
   basmatiRice: {
-    available: Boolean,
-    length: "Long grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  basmatiRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.basmatiRice
+    }
   },
   blackRice: {
-    available: Boolean,
-    length: "short grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  blackRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.blackRice
+    }
   },
   bomaRice: {
-    available: Boolean,
-    length: "short grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  bomaRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.bomaRice
+    }
   },
   brownRice: {
-    available: Boolean,
-    length: "Long grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  brownRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.brownRice
+    }
   },
   jasmineRice: {
-    available: Boolean,
-    length: "Long grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  jasmineRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.jasmineRice
+    }
   },
   longGrainWhiteRice: {
-    available: Boolean,
-    length: "Long grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  longGrainWhiteRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.longGrainWhiteRice
+    }
   },
   parboiledRice: {
-    available: Boolean,
-    length: "Long, Medium, Short grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  parboiledRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.parboiledRice
+    }
   },
   stickyRice: {
-    available: Boolean,
-    length: "Long grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  stickyRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.stickyRice
+    }
   },
   sushiRice: {
-    available: Boolean,
-    length: "Short grain",
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  sushiRiceDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.sushiRice
+    }
   }
 })
 
