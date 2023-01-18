@@ -1,221 +1,156 @@
 const mongoose = require("mongoose")
 const Farm = require("../farmModel.js")
 
+const detailsSchema = new mongoose.Schema({
+  details: [
+    {
+      packsWeight: String,
+      price: Number,
+      img: String
+    }
+  ]
+})
+
 const potatoSchema = new mongoose.Schema({
-  subDoc: {
+  farm_Id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farm'
   },
   russet: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for frying or baking"
+    type: Boolean
+  },
+  russetDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.russet
     }
   },
   jewelYam: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for frying or baking"
+    type: Boolean
+  },
+  jewelYamDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.jewelYam
     }
   },
   japaneseSweet: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for frying or baking"
+    type: Boolean
+  },
+  japaneseSweetDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.japaneseSweet
     }
   },
   hannahSweet: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for frying or baking"
+    type: Boolean
+  },
+  hannahSweetDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.hannahSweet
     }
   },
   redBliss: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for roasting or boiling"
+    type: Boolean
+  },
+  redBlissDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.redBliss
     }
   },
   frenchFingerling: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for roasting or boiling"
+    type: Boolean
+  },
+  frenchFingerlingDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.frenchFingerling
     }
   },
   russianBanana: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for roasting or boiling"
+    type: Boolean
+  },
+  russianBananaDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.russianBanana
     }
   },
   redThumb: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for roasting or boiling"
+    type: Boolean
+  },
+  redThumbDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.redThumb
     }
   },
   laRatte: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for roasting or boiling"
+    type: Boolean
+  },
+  laRatteDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.laRatte
     }
   },
   austrianCrescent: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for roasting or boiling"
+    type: Boolean
+  },
+  austrianCrescentDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.austrianCrescent
     }
   },
   yukonGold: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for pan-frying, roasting or stewing"
+    type: Boolean
+  },
+  yukonGoldDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.yukonGold
     }
   },
   redGold: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for pan-frying, roasting or stewing"
+    type: Boolean
+  },
+  redGoldDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.redGold
     }
   },
   purpleMajesty: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for pan-frying, roasting or stewing"
+    type: Boolean
+  },
+  purpleMajestyDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.purpleMajesty
     }
   },
   redNorland: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for pan-frying, roasting or stewing"
+    type: Boolean
+  },
+  redNorlandDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.redNorland
     }
   },
   allBlue: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-    description: {
-      type: String,
-      default: "Ideal for pan-frying, roasting or stewing"
+    type: Boolean
+  },
+  allBlueDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.allBlue
     }
-  }
+  },
 })
 
 const Potato = mongoose.model("Potato", potatoSchema)
