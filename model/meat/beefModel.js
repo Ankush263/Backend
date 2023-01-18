@@ -1,173 +1,166 @@
 const mongoose = require("mongoose")
 const Farm = require("../farmModel.js")
 
+const detailsSchema = new mongoose.Schema({
+  details: [
+    {
+      packsWeight: String,
+      price: Number,
+      img: String
+    }
+  ]
+})
+
 const beefSchema = new mongoose.Schema({
-  subDoc: {
+  farm_Id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farm'
   },
   cuts: {
     neck: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    neckDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.neck
+      }
     },
     brisket: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    brisketDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.brisket
+      }
     },
     chuck: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    chuckDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.chuck
+      }
     },
     shank: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    shankDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.shank
+      }
     },
     rib: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    ribDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.rib
+      }
     },
     shortPlate: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    shortPlateDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.shortPlate
+      }
     },
     shortLoin: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    shortLoinDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.shortLoin
+      }
     },
     flank: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    flankDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.flank
+      }
     },
     bottomSirloin: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    bottomSirloinDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.bottomSirloin
+      }
     },
     topSirloin: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    topSirloinDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.topSirloin
+      }
     },
     tenderLoin: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    tenderLoinDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.tenderLoin
+      }
     },
     sirLoin: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    sirLoinDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.sirLoin
+      }
     },
     rump: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    rumpDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.rump
+      }
     },
     round: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    roundDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.round
+      }
     },
     shank: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
+    },
+    shankDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.shank
+      }
     },
     axTail: {
-      available: Boolean,
-      details: [
-        {
-          packsWeight: String,
-          price: Number,
-          img: String
-        }
-      ]
+      type: Boolean
     },
-
+    axTailDetails: {
+      type: detailsSchema,
+      validate: function() {
+        return this.axTail
+      }
+    },
   }
 })
 
