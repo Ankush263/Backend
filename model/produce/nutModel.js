@@ -1,91 +1,93 @@
 const mongoose = require("mongoose")
 const Farm = require("../farmModel.js")
 
+const detailsSchema = new mongoose.Schema({
+  details: [
+    {
+      packsWeight: String,
+      price: Number,
+      img: String
+    }
+  ]
+})
+
 const nutSchema = new mongoose.Schema({
-  subDoc: {
+  farm_Id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farm'
   },
   almonds: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  almondsDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.almonds
+    }
   },
   hazelNut: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  hazelNutDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.hazelNut
+    }
   },
   cashewNut: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  cashewNutDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.cashewNut
+    }
   },
   peanut: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  peanutDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.peanut
+    }
   },
   pistachio: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  pistachioDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.pistachio
+    }
   },
   brazilNut: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  brazilNutDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.brazilNut
+    }
   },
   walnut: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  walnutDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.walnut
+    }
   },
   chestnut: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
-  }
+    type: Boolean
+  },
+  chestnutDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.chestnut
+    }
+  },
 })
 
 const Nut = mongoose.model("Nut", nutSchema)
