@@ -1,81 +1,84 @@
 const mongoose = require("mongoose")
 const Farm = require("../farmModel")
 
+const detailsSchema = new mongoose.Schema({
+  details: [
+    {
+      packsWeight: String,
+      price: Number,
+      img: String
+    }
+  ]
+})
+
 const onionSchema = new mongoose.Schema({
-  subDoc: {
+  farm_Id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farm'
   },
   leeks: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  leeksDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.leeks
+    }
   },
   sweetOnion: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  sweetOnionDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.sweetOnion
+    }
   },
   yellowOnion: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  yellowOnionDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.yellowOnion
+    }
   },
   greenOnion: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  greenOnionDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.greenOnion
+    }
   },
   whiteOnion: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  whiteOnionDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.whiteOnion
+    }
   },
   shallot: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  shallotDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.shallot
+    }
   },
   redOnion: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
-  }
+    type: Boolean
+  },
+  redOnionDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.redOnion
+    }
+  },
 })
 
 const Onion = mongoose.model("Onion", onionSchema)
