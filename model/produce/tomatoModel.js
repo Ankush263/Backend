@@ -1,71 +1,75 @@
 const mongoose = require("mongoose")
 const Farm = require("../farmModel.js")
 
+const detailsSchema = new mongoose.Schema({
+  details: [
+    {
+      packsWeight: String,
+      price: Number,
+      img: String
+    }
+  ]
+})
+
 const tomatoSchema = new mongoose.Schema({
-  subDoc: {
+  farm_Id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farm'
   },
   cherryTomato: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  cherryTomatoDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.cherryTomato
+    }
   },
   plumTomato: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  plumTomatoDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.plumTomato
+    }
   },
   globeTomato: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  globeTomatoDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.globeTomato
+    }
   },
   beefSteak: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  beefSteakDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.beefSteak
+    }
   },
   oxheartTomato: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
+    type: Boolean
+  },
+  oxheartTomatoDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.oxheartTomato
+    }
   },
   yellowTomato: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ],
-  }
+    type: Boolean
+  },
+  yellowTomatoDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.yellowTomato
+    }
+  },
 })
 
 const Tomato = mongoose.model("Tomato", tomatoSchema)
