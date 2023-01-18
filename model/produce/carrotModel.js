@@ -1,61 +1,66 @@
 const mongoose = require("mongoose")
 const Farm = require("../farmModel")
 
+const detailsSchema = new mongoose.Schema({
+  details: [
+    {
+      packsWeight: String,
+      price: Number,
+      img: String
+    }
+  ]
+})
+
 const carrotSchema = new mongoose.Schema({
-  subDoc: {
+  farm_Id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farm'
   },
   parisMarket: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  parisMarketDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.parisMarket
+    }
   },
   nantes: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  nantesDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.nantes
+    }
   },
   chantenay: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  chantenayDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.chantenay
+    }
   },
   danvers: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
+    type: Boolean
+  },
+  danversDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.danvers
+    }
   },
   imperator: {
-    available: Boolean,
-    details: [
-      {
-        packsWeight: String,
-        price: Number,
-        img: String
-      }
-    ]
-  }
+    type: Boolean
+  },
+  imperatorDetails: {
+    type: detailsSchema,
+    validate: function() {
+      return this.imperator
+    }
+  },
 })
 
 const Carrot = mongoose.model("Carrot", carrotSchema)
