@@ -12,7 +12,7 @@ const detailsSchema = new mongoose.Schema({
 })
 
 const chickenSchema = new mongoose.Schema({
-  subDoc: {
+  farm_Id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farm'
   },
