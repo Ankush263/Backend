@@ -6,7 +6,7 @@ const {
   getSingleFarm,
   updateFarm,
   deleteFarm,
-  getFarmStats
+  getFarmStats,
 } = require("../controllers/FarmControllers.js")
 
 const router = express.Router()
@@ -18,11 +18,11 @@ router
     .get(getAllFarms)
     .post(createFarm)
 
+
 router
   .route("/:id")
     .get(getSingleFarm)
     .patch(updateFarm)
     .delete(deleteFarm)
-
 
 module.exports = router
