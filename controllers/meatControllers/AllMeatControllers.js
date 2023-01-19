@@ -19,14 +19,15 @@ const pre = async (req, res) => {
   name === "duck" ? duck : 
   name === "goat" ? goat :
   name === "lamb" ? lamb :
-  name === "turkey" ? turkey : deer
+  name === "turkey" ? turkey : undefined
 }
 
 exports.createMeat = async (req, res) => {
   try {
     await pre(req, res)
-    console.log("create meat")
-    const newMeat = await func.create(req.body)
+    console.log(req.params)
+    const newMeat = new func({ farm_Id: req.params.farmId , ...req.body })
+    newMeat.save()
     res.status(201).json({
       status: "Success",
       data: {
@@ -41,32 +42,11 @@ exports.createMeat = async (req, res) => {
   }
 }
 
-exports.getMeatByFarmId = async (req, res) => {
-  try {
-    await pre(req, res)
-    const features = new APIFeatures(func.find(), req.query)
-      .filter()
-    
-    const meat = await features.query
-    res.status(200).json({
-      status: "Success",
-      result: meat.length,
-      data: {
-        meat
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error
-    })
-  }
-}
-
 exports.getMeatById = async (req, res) => {
   try {
     await pre(req, res)
     const meat = await func.findById(req.params.id)
+    console.log(req.params)
     res.status(200).json({
       status: "Success",
       data: {
