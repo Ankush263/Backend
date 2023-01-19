@@ -67,11 +67,6 @@ const farmSchema = new mongoose.Schema({
   }
 })
 
-// ----------QUERY MIDDLEWARE----------
-// farmSchema.pre("find", function(next) {
-
-//   next()
-// })
 
 const Farm = mongoose.model("Farm", farmSchema)
 
