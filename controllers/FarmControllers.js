@@ -1,5 +1,6 @@
 const Farm = require("../model/farmModel.js")
 const APIFeatures = require("../utils/apiFeatures.js")
+const chicken = require("./../model/meat/chickenModel.js")
 
 // ----------GET ALL LISTED FARM----------
 exports.getAllFarms = async (req, res) => {
@@ -47,6 +48,8 @@ exports.createFarm = async (req, res) => {
 exports.getSingleFarm = async (req, res) => {
   try {
     const farm = await Farm.findById(req.params.id)
+    console.log(req.params)
+    console.log(req.query)
     res.status(200).json({
       status: "Success",
       data: {
