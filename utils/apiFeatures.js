@@ -16,6 +16,11 @@ class APIFeatures {
     return this
   }
 
+  // advance() {
+  //   const queryObj = { ...this.query }
+  //   console.log("queryObj: ", queryObj)
+  // }
+
   sort() {
     // -----Sorting Method-----
     if(this.queryString.sort) {
