@@ -8,6 +8,9 @@ const {
   deleteFarm,
   getFarmStats,
 } = require("../controllers/FarmControllers.js")
+const {
+  protect
+} = require("../controllers/authControllers.js")
 
 const router = express.Router()
 
@@ -15,8 +18,8 @@ router.route("/farm-stats").get(getFarmStats)
 
 router
   .route("/")
-    .get(getAllFarms)
-    .post(createFarm)
+    .get(protect, getAllFarms)
+    .post(protect, createFarm)
 
 
 router
