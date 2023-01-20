@@ -88,13 +88,24 @@ exports.protect = async (req, res, next) => {
         message: "You are not loged in to get access"
       })
     }
-
+    // validate token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-    console.log(decoded)
+    
+    // user exists
+    // const freshUser = await User.findOne(decoded.id)
+
+    // if(!freshUser) {
+    //   return next(res.status(401).json({
+    //     status: "fail",
+    //     message: "The user belonging to this token no longer exist"
+    //   }))
+    // }
+
+
     next()
   } catch (error) {
     res.status(404).json({
-      status: "Success",
+      status: "fail",
       message: error
     })
   }
