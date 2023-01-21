@@ -1,131 +1,98 @@
 const Farm = require("../model/farmModel.js")
 const APIFeatures = require("../utils/apiFeatures.js")
-const chicken = require("./../model/meat/chickenModel.js")
+const AppError = require("../utils/appError.js")
+const catchAsync = require("../utils/catchAsync.js")
 
 // ----------GET ALL LISTED FARM----------
-exports.getAllFarms = async (req, res) => {
-  try {
-    const features = new APIFeatures(Farm.find(), req.query)
-      .filter()
-      .sort()
-      .pagination()
+exports.getAllFarms = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Farm.find(), req.query)
+    .filter()
+    .sort()
+    .pagination()
 
-    const farm = await features.query
-    res.status(200).json({
-      status: "Success",
-      result: farm.length,
-      data: {
-        farm
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error
-    })
-  }
-}
+  const farm = await features.query
+  res.status(200).json({
+    status: "Success",
+    result: farm.length,
+    data: {
+      farm
+    }
+  })
+})
 
 // ----------CREATE FARM----------
-exports.createFarm = async (req, res) => {
-  try {
-    const newFarm = await Farm.create(req.body)
-    res.status(201).json({
-      status: "Success",
-      data: {
-        farm: newFarm
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error
-    })
-  }
-}
+exports.createFarm = catchAsync(async (req, res, next) => {
+  const newFarm = await Farm.create(req.body)
+  res.status(201).json({
+    status: "Success",
+    data: {
+      farm: newFarm
+    }
+  })
+})
 
 // ----------GET SINGLE FARM BY ID----------
-exports.getSingleFarm = async (req, res) => {
-  try {
-    const farm = await Farm.findById(req.params.id)
-    console.log(req.params)
-    console.log(req.query)
-    res.status(200).json({
-      status: "Success",
-      data: {
-        farm
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "Success",
-      message: error
-    })
+exports.getSingleFarm = catchAsync(async (req, res, next) => {
+  const farm = await Farm.findById(req.params.id)
+
+  if(!farm) {
+    return next(new AppError("No Farm is found with that ID", 404))
   }
-}
+  res.status(200).json({
+    status: "Success",
+    data: {
+      farm
+    }
+  })
+})
 
 // ----------UPDATE A SINGLE FARM----------
-exports.updateFarm = async (req, res) => {
-  try {
-    const farm = await Farm.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    })
-    res.status(200).json({
-      status: "Success",
-      data: {
-        farm
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "Success",
-      message: error
-    })
+exports.updateFarm = catchAsync(async (req, res, next) => {
+  const farm = await Farm.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  })
+  if(!farm) {
+    return next(new AppError("No Farm is found with that ID", 404))
   }
-}
+  res.status(200).json({
+    status: "Success",
+    data: {
+      farm
+    }
+  })
+})
 
 // ----------DELETE FARM----------
-exports.deleteFarm = async (req, res) => {
-  try {
-    await Farm.findByIdAndDelete(req.params.id)
-    res.status(204).json({
-      status: "Success",
-      data: null
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "Success",
-      message: error
-    })
+exports.deleteFarm = catchAsync(async (req, res, next) => {
+  const farm = await Farm.findByIdAndDelete(req.params.id)
+  if(!farm) {
+    return next(new AppError(`No Farm is found with that ID`, 404))
   }
-}
+  res.status(204).json({
+    status: "Success",
+    data: null
+  })
+})
 
 // ----------AGGREGATE PIPELINE----------
-exports.getFarmStats = async (req, res) => {
-  try {
-    const stats = await Farm.aggregate([
-      {
-        $match: { rating: { $gte: 3.5 } },
-      },
-      {
-        $group: {
-          _id: null,
-          avgRating: { $avg: "$rating" },
-          num: { $sum: 1 }
-        }
+exports.getFarmStats = catchAsync(async (req, res, next) => {
+  const stats = await Farm.aggregate([
+    {
+      $match: { rating: { $gte: 3.5 } },
+    },
+    {
+      $group: {
+        _id: null,
+        avgRating: { $avg: "$rating" },
+        num: { $sum: 1 }
       }
-    ])
-    res.status(200).json({
-      status: "Success",
-      data: {
-        stats
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "Success",
-      message: error
-    })
-  }
-}
+    }
+  ])
+  res.status(200).json({
+    status: "Success",
+    data: {
+      stats
+    }
+  })
+})

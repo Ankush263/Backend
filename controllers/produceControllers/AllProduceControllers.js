@@ -6,6 +6,7 @@ const lemon = require("../../model/produce/lemonModel")
 const nuts = require("../../model/produce/nutModel")
 const onion = require("../../model/produce/onionModel")
 const carrot = require("../../model/produce/carrotModel")
+const catchAsync = require("../../utils/catchAsync.js")
 
 let func
 
@@ -23,80 +24,58 @@ const pre = async (req, res) => {
   name === "carrot" ? carrot : undefined
 }
 
-exports.createProduce = async (req, res) => {
-  try {
-    await pre(req, res)
-    console.log(req.params)
-    console.log("produce create called...")
-    const newProduce = new func({ farm_Id: req.params.farmId , ...req.body })
-    newProduce.save()
-    res.status(201).json({
-      status: "Success",
-      data: {
-        newProduce
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error
-    })
-  }
-}
+exports.createProduce = catchAsync(async (req, res, next) => {
+  await pre(req, res)
+  const newProduce = new func({ farm_Id: req.params.farmId , ...req.body })
+  newProduce.save()
+  res.status(201).json({
+    status: "Success",
+    data: {
+      newProduce
+    }
+  })
+})
 
-exports.getProduceById = async (req, res) => {
-  try {
-    await pre(req, res)
-    const produce = await func.findById(req.params.id)
-    console.log(req.params)
-    res.status(200).json({
-      status: "Success",
-      data: {
-        produce
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error
-    })
+exports.getProduceById = catchAsync(async (req, res, next) => {
+  await pre(req, res)
+  const produce = await func.findById(req.params.id)
+  if(!produce) {
+    return next(new AppError("No produce is found with that Id", 404))
   }
-}
+  res.status(200).json({
+    status: "Success",
+    data: {
+      produce
+    }
+  })
+})
 
-exports.updateProduceByItsId = async (req, res) => {
-  try {
-    await pre(req, res)
-    const produce = await func.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    })
-    res.status(200).json({
-      status: "Success",
-      data: {
-        produce
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error
-    })
+exports.updateProduceByItsId = catchAsync(async (req, res, next) => {
+  await pre(req, res)
+  const produce = await func.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  })
+  if(!produce) {
+    return next(new AppError("No produce is found with that Id", 404))
   }
-}
+  res.status(200).json({
+    status: "Success",
+    data: {
+      produce
+    }
+  })
+})
 
-exports.deleteProduceByItsId = async (req, res) => {
-  try {
-    await pre(req, res)
-    await func.findByIdAndDelete(req.params.id)
-    res.status(204).json({
-      status: "Success",
-      data: null
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error
-    })
+exports.deleteProduceByItsId = catchAsync(async (req, res, next) => {
+  await pre(req, res)
+  const produce = await func.findByIdAndDelete(req.params.id)
+  if(!produce) {
+    return next(new AppError("No produce is found with that Id", 404))
   }
-}
+  res.status(204).json({
+    status: "Success",
+    data: null
+  })
+})
 
