@@ -1,7 +1,9 @@
 const express = require("express")
+const cors = require("cors")
 const app = express()
+app.use(cors())
 
-// const userRouter = require("./routes/userRouter.js")
+const userRouter = require("./routes/userRouter.js")
 const farmRouter = require("./routes/farmRoutes.js")
 const meatRouter = require("./routes/meatRouter.js")
 const produceRouter = require("./routes/produceRouter.js")
@@ -15,7 +17,7 @@ app.use((req, res, next) => {
   next()
 })
 
-// app.use("/api/v1/user", userRouter)
+app.use("/api/v1/user", userRouter)
 app.use("/api/v1/farm", farmRouter)
 app.use("/api/v1/meat", meatRouter)
 app.use("/api/v1/produce", produceRouter)
