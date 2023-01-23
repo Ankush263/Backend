@@ -1,37 +1,29 @@
 const User = require("./../model/userModel")
+const catchAsync = require("../utils/catchAsync")
+const AppError = require("../utils/appError")
 
-exports.getAllUser = async (req, res) => {
-  try {
-    const user = await User.find()
-    res.status(201).json({
-      status: "Success",
-      result: user.length,
-      message: {
-        user
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "Success",
-      message: error
-    })
-  }
-}
+exports.getAllUser = catchAsync(async (req, res) => {
+  const user = await User.find()
+  res.status(201).json({
+    status: "Success",
+    result: user.length,
+    message: {
+      user
+    }
+  })
+})
 
-exports.getSingleUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id)
-    res.status(201).json({
-      status: "Success",
-      result: user.length,
-      message: {
-        user
-      }
-    })
-  } catch (error) {
-    res.status(404).json({
-      status: "Success",
-      message: error
-    })
+exports.getSingleUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id)
+  if(!user) {
+    return next(new AppError("Can't find any user with this Id", 404))
   }
-}
+  res.status(201).json({
+    status: "Success",
+    result: user.length,
+    message: {
+      user
+    }
+  })
+})
+
