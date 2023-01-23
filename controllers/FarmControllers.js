@@ -23,6 +23,7 @@ exports.getAllFarms = catchAsync(async (req, res, next) => {
 // ----------CREATE FARM----------
 exports.createFarm = catchAsync(async (req, res, next) => {
   const newFarm = await Farm.create(req.body)
+
   res.status(201).json({
     status: "Success",
     data: {
