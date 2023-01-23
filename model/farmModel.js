@@ -1,4 +1,6 @@
 const mongoose = require("mongoose")
+const validator = require("validator")
+
 
 const meatDetailSchema = new mongoose.Schema({
   chicken: {
@@ -67,9 +69,14 @@ const produceDetailSchema = new mongoose.Schema({
 })
 
 const farmSchema = new mongoose.Schema({
+  creatorEmail: {
+    type: String,
+    required: [true, "Please provide your email"],
+    lowercase: true,
+    validate: [validator.isEmail, "Please provide a valid email"]
+  },
   createAt: {
-    type: Date,
-    default: Date.now,
+    type: String,
     required: [true, "Must provide create date"]
   },
   farmName: {
@@ -88,9 +95,6 @@ const farmSchema = new mongoose.Schema({
   rating: {
     type: Number,
     required: true,
-    default: 0,
-    min: [1, "min value 1"],
-    max: [5, "max value 5"]
   },
   produce: {
     type: Boolean,
