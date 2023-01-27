@@ -3,6 +3,10 @@ const cors = require("cors")
 const app = express()
 app.use(cors())
 
+// const multer = require('multer')
+// const storage = multer.memoryStorage()
+// const upload = multer({ storage: storage })
+
 const userRouter = require("./routes/userRouter.js")
 const farmRouter = require("./routes/farmRoutes.js")
 const meatRouter = require("./routes/meatRouter.js")
@@ -19,8 +23,8 @@ app.use((req, res, next) => {
 
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/farm", farmRouter)
-app.use("/api/v1/meat", meatRouter)
-app.use("/api/v1/produce", produceRouter)
+// app.use("/api/v1/meat", meatRouter)
+// app.use("/api/v1/produce", produceRouter)
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404))
