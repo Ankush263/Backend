@@ -1,79 +1,61 @@
 const mongoose = require("mongoose")
-const validator = require("validator")
+const User = require("./userModel")
 
 
 const meatDetailSchema = new mongoose.Schema({
-  chicken: {
-    type: Boolean,
-    default: false
-  },
-  pork: {
-    type: Boolean,
-    default: false
-  },
-  beef: {
-    type: Boolean,
-    default: false
-  },
-  goat: {
-    type: Boolean,
-    default: false
-  },
-  lamb: {
-    type: Boolean,
-    default: false
-  },
-  turkey: {
-    type: Boolean,
-    default: false
-  },
-  duck: {
-    type: Boolean,
-    default: false
-  },
+  details: [
+    {
+      name: {
+        type: String,
+        required: [true, "Must provide animal name"]
+      },
+      cuts: {
+        type: String,
+        required: [true, "Must provide animal cuts"]
+      },
+      image: {
+        type: String,
+        default: "IMG"
+      },
+      weight: {
+        type: String,
+        required: [true, "Must provide cuts weight"]
+      },
+      price: {
+        type: String,
+        required: [true, "Must provide price of meat"]
+      }
+    }
+  ]
 })
 
 const produceDetailSchema = new mongoose.Schema({
-  potato: {
-    type: Boolean,
-    default: false
-  },
-  berry: {
-    type: Boolean,
-    default: false
-  },
-  rice: {
-    type: Boolean,
-    default: false
-  },
-  tomato: {
-    type: Boolean,
-    default: false
-  },
-  lemon: {
-    type: Boolean,
-    default: false
-  },
-  nuts: {
-    type: Boolean,
-    default: false
-  },
-  onion: {
-    type: Boolean,
-    default: false
-  },
-  carrot: {
-    type: Boolean,
-    default: false
-  },
+  details: [
+    {
+      name: {
+        type: String,
+        required: [true, "Must provide produce name"]
+      },
+      image: {
+        type: String,
+        default: "IMG"
+      },
+      paksWeight: {
+        type: String,
+        required: [true, "Must provide the weight of the pack"]
+      },
+      price: {
+        type: String,
+        required: [true, "Must provide price of produce"]
+      }
+    }
+  ]
 })
 
 const farmSchema = new mongoose.Schema({
-  creatorEmail: {
-    type: String,
-    required: [true, "Please provide your email"],
-    lowercase: true,
-    validate: [validator.isEmail, "Please provide a valid email"]
+  creatorID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   },
   createAt: {
     type: String,
