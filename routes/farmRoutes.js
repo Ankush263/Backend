@@ -16,14 +16,14 @@ const router = express.Router()
 
 router.route("/farm-stats").get(getFarmStats)
 
-// router
-//   .route("/")
-//     .get(protect, getAllFarms)
-//     .post(protect, createFarm)
 router
   .route("/")
-    .get(getAllFarms)
-    .post(createFarm)
+    .get(protect, getAllFarms)
+    .post(protect, createFarm)
+// router
+//   .route("/")
+//     .get(getAllFarms)
+//     .post(createFarm)
 
 
 router
