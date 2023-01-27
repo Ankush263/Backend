@@ -2,6 +2,8 @@ const Farm = require("../model/farmModel.js")
 const APIFeatures = require("../utils/apiFeatures.js")
 const AppError = require("../utils/appError.js")
 const catchAsync = require("../utils/catchAsync.js")
+const jwt = require("jsonwebtoken")
+const { promisify } = require("util")
 
 // ----------GET ALL LISTED FARM----------
 exports.getAllFarms = catchAsync(async (req, res, next) => {
@@ -9,6 +11,7 @@ exports.getAllFarms = catchAsync(async (req, res, next) => {
     .filter()
     .sort()
     .pagination()
+    .limitFields()
 
   const farm = await features.query
   res.status(200).json({
@@ -22,7 +25,10 @@ exports.getAllFarms = catchAsync(async (req, res, next) => {
 
 // ----------CREATE FARM----------
 exports.createFarm = catchAsync(async (req, res, next) => {
-  const newFarm = await Farm.create(req.body)
+  const token = req.headers.authorization.split(" ")[1]
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+  const newFarm = new Farm({ creatorID: decoded.id, ...req.body })
+  newFarm.save()
 
   res.status(201).json({
     status: "Success",
@@ -34,8 +40,11 @@ exports.createFarm = catchAsync(async (req, res, next) => {
 
 // ----------GET SINGLE FARM BY ID----------
 exports.getSingleFarm = catchAsync(async (req, res, next) => {
-  const farm = await Farm.findById(req.params.id)
+  // const farm = await Farm.findById(req.params.id)
+  const features = new APIFeatures(Farm.findById(req.params.id), req.query)
+    .limitFields()
 
+  const farm = await features.query
   if(!farm) {
     return next(new AppError("No Farm is found with that ID", 404))
   }
