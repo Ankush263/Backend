@@ -25,9 +25,10 @@ exports.getAllFarms = catchAsync(async (req, res, next) => {
 
 // ----------CREATE FARM----------
 exports.createFarm = catchAsync(async (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1]
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-  const newFarm = new Farm({ creatorID: decoded.id, ...req.body })
+  // const token = req.headers.authorization.split(" ")[1]
+  // const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+  // const newFarm = new Farm({ creatorID: decoded.id, ...req.body })
+  const newFarm = new Farm({ ...req.body })
   newFarm.save()
 
   res.status(201).json({
