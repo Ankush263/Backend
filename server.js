@@ -4,6 +4,7 @@ const app = require("./app")
 const fs = require("fs")
 const Farm = require("./model/farmModel")
 const sampleFarm = require("./data/sample_farm_data.json")
+dotenv.config({ path: "./.env" })
 
 process.on("uncaughtException", error => {
   console.log("UnhandleRejection Shutting down the application")
@@ -11,7 +12,7 @@ process.on("uncaughtException", error => {
   process.exit(1)
 })
 
-dotenv.config({ path: "./.env" })
+
 const DB = process.env.DATABASE
 
 mongoose.connect(DB, {
