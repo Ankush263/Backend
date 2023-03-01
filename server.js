@@ -1,9 +1,6 @@
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const app = require("./app")
-const fs = require("fs")
-const Farm = require("./model/farmModel")
-const sampleFarm = require("./data/sample_farm_data.json")
 dotenv.config({ path: "./.env" })
 
 process.on("uncaughtException", error => {
@@ -25,16 +22,16 @@ mongoose.connect(DB, {
 })
 
 
-const farms = JSON.parse(fs.readFileSync(`${__dirname}/data/sample_farm_data.json`, "utf-8"))
+// const farms = JSON.parse(fs.readFileSync(`${__dirname}/data/sample_farm_data.json`, "utf-8"))
 
-const importData = async () => {
-  try {
-    await Farm.create(farms)
-    console.log("Data successfully loaded....")
-  } catch (error) {
-    console.log(error)
-  }
-}
+// const importData = async () => {
+//   try {
+//     await Farm.create(farms)
+//     console.log("Data successfully loaded....")
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
 // importData()
 
